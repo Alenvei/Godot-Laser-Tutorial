@@ -1,0 +1,113 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Laser.tscn" type="PackedScene" id=1]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.309804, 0.356863, 0.396078, 1 )
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "New Anim2"
+length = 4.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Laser:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.1, 2.2, 3.5, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.795, 0.95, 1.5 ), Vector3( 0.795, 0.95, 5 ), Vector3( 1.4, 0.95, 5 ), Vector3( 1.4, 0.95, 1.5 ), Vector3( 0.795, 0.95, 1.5 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Nová Animácia"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.737, 0.848, -0.093 ), Vector3( 0.737, 0.848, -1.928 ), Vector3( -1.103, 0.848, -1.928 ), Vector3( -1.103, 0.848, -0.093 ), Vector3( 0.737, 0.848, -0.093 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.706661, 0.847689, -2.35457 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Laser:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.795, 0.95, 1.5 ) ]
+}
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+albedo_color = Color( 1, 0.866667, 0, 0.184314 )
+
+[node name="test" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 3.06605, 0, 0, 0, 0.208285, 0, 0, 0, 3.06586, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 6 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../MeshInstance2")
+autoplay = "New Anim2"
+"anims/New Anim2" = SubResource( 8 )
+"anims/Nová Animácia" = SubResource( 4 )
+anims/RESET = SubResource( 5 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( -2.18557e-08, 0, 0.5, 0, 1, 0, -0.5, 0, -2.18557e-08, 0.706661, 0.847689, -2.35457 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 7 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance2/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -4.37114e-08, -0.290151, 0.956981, 0, 0.956981, 0.290151, -1, 1.26829e-08, -4.1831e-08, 3.83651, 2.53716, -0.0124398 )
+
+[node name="Laser" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.795, 0.95, 1.5 )
